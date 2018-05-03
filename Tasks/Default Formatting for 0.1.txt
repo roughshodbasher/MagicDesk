@@ -1,0 +1,6 @@
+"Day of Week" eg Thursday
+"Date" eg 1/1/18
+Tasks
+-Task1 [todo,time]
+-Task2 [todo,time]
+...
