@@ -8,12 +8,13 @@
 from Calander_Day import Day
 
 class Month:
-	def __init__(self,number,isLeap=False):
+	def __init__(self,number,isLeap=False,dayCounter=[0]):
 		# Assertions to make sure that the number is within 0 and 11, i.e is a month
 		# January == 0 (i.e number 0 -> January, number 11 -> December
 		assert number >= 0
 		assert number <= 11
-
+		
+		weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
 		
 		self.number = number
 		self.days = []
@@ -25,25 +26,28 @@ class Month:
 		#    if not thirty days adds last day (31)
 
 		for i in range(28):
-				self.days.append(Day(i+1))
+				self.days.append(Day(i+1,weekdays[dayCounter[0]]))
+				dayCounter[0] = (dayCounter[0]+1)%7
 		 
 		daysThirty = [8,3,5,10]
 		if number == 1:
 			# February
 			if isLeap:
-				self.days.append(Day(29))
+				self.days.append(Day(29,weekdays[dayCounter[0]]))
+				dayCounter[0] = (dayCounter[0]+1)%7
 		else:
 			for i in range(29,31):
-				self.days.append(Day(i))
+				self.days.append(Day(i,weekdays[dayCounter[0]]))
+				dayCounter[0] = (dayCounter[0]+1)%7
 			if not (number in daysThirty):
-				self.days.append(Day(31))
+				self.days.append(Day(31,weekdays[dayCounter[0]]))
+				dayCounter[0] = (dayCounter[0]+1)%7
 				
 		# Setting Month name
 		# Array of the month names, uses number to call name in O(1) time - its a constant array always O(1)...
 		names = ["January","February","March","April","May","June","July","August","September","October","November","December"]
 		self.name = names[number]
 
-		return
   
 	def __repr__(self):
 		return self.name

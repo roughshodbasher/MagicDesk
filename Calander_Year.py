@@ -7,18 +7,23 @@ from Calander_Month import Month
 class Year:
 	def __init__(self,number):
 		self.number = number
+		# Getting the first day of the year
+		weekdays = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]
+		startDay = [(3+number-2000)%7]
+		
 		# Assuming wont be running until 2100
 		leap = False
 		if number%4 == 0:
 			leap = True
 		self.months = []
 		for i in range(12):
-			self.months.append(Month(i,leap))
+			self.months.append(Month(i,leap,startDay))
 
 	def printAll(self):
 		print("Year: "+str(self.number))
 		for m in self.months:
 			print(m)
+			print()
 
 	def printTasks(self,date):
 		# date inputted in from of [DD,MM,YYYY]

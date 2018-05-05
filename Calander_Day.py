@@ -4,11 +4,12 @@
 from Calander_Task import Task
 
 class Day:
-	def __init__(self,number):
+	def __init__(self,number,dayOfWeek):
 		assert number >= 1
 		assert number <= 31
 		self.number = number
 		self.name = str(number)
+		self.nameDay = dayOfWeek
 		self.tasks = []
 		if number%10 == 1 and number != 11:
 			self.name += "st"
@@ -23,7 +24,7 @@ class Day:
 		return self.name
 
 	def __str__(self):
-		return self.name
+		return self.nameDay+" "+self.name
 
 	def printTasks(self):
 		for task in self.tasks:
@@ -33,9 +34,9 @@ class Day:
 		self.tasks.append(task)
 		return
 
-		
-mon = Day(12)
-mon.insertTask(Task("test1",None,1022))
-mon.insertTask(Task("test3",None,1))
-print(mon)
-mon.printTasks()
+if "__name__" == "__main__":	
+	mon = Day(12)
+	mon.insertTask(Task("test1",None,1022))
+	mon.insertTask(Task("test3",None,1))
+	print(mon)
+	mon.printTasks()

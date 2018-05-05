@@ -1,2 +1,2 @@
 # MagicDesk
-Pet Project for what is essentially a Magic
+Pet Project for what is essentially a Magic Mirror
