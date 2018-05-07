@@ -30,8 +30,13 @@ class Day:
 		for task in self.tasks:
 			print(task)
 
+			
+	def getTasks(self):
+		return self.tasks
+		
 	def insertTask(self,task):
 		self.tasks.append(task)
+		print(self.number)
 		return
 
 if "__name__" == "__main__":	
