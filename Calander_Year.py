@@ -31,11 +31,10 @@ class Year:
 
 		
 	def insertTask(self,task):
+		print(task.date)
 		# Checking if month is valid
 		if task.date[1] <= 0 or task.date[1] >= 13:
 			assert ValueError("Month Incorrect")
-		print(task.date)
-		print(self.number)
 		self.months[task.date[1]-self.months[0].number].insertTask(task)
 	
 	def getWeeksTasks(self,date):

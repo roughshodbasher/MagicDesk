@@ -20,7 +20,7 @@ class Task:
             self.showtime += " AM"
 
     def __str__(self):
-        return self.showtime + ", "+ self.name
+        return self.name
 
     def getTime(self):
         return self.time

@@ -36,12 +36,11 @@ class Day:
 		
 	def insertTask(self,task):
 		self.tasks.append(task)
-		print(self.number)
 		return
 
 if "__name__" == "__main__":	
 	mon = Day(12)
 	mon.insertTask(Task("test1",None,1022))
 	mon.insertTask(Task("test3",None,1))
-	print(mon)
+	#print(mon)
 	mon.printTasks()

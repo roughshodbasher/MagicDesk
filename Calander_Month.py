@@ -64,32 +64,30 @@ class Month:
 		
 	def insertTask(self,task):
 	#Adds task to correct day
-		print(self.name)
 	#checks if day correct
 		if task.date[0] <= 0 or task.date[0] >= len(self.days):
 			assert ValueError("Day Incorrect")
-		
 		self.days[task.date[0]-self.days[0].number].insertTask(task)
 		return True
 
 	def getWeeksTasks(self,date):
 		#Generating an Array for the tasks
 		#Formatting [ [Day="Sunday",Date="1st",Task="Do Nothing"], ... ]
-		counterMax = 7
+		counterMax = 6
 		startDate = date
-		if self.days[date[0]].nameDay == "Saturday":
+		if self.days[date[0]-1].nameDay == "Saturday":
 			counterMax += 1
-			print("???")
 		# if given date is NOT saturday need to find the sunday for the week
 		else:
 			count = 0
-			print(self.days[date[0]].nameDay)
-			while self.days[date[0]-count].nameDay != "Sunday":
+			#print(self.days[date[0]-1].nameDay)
+			while self.days[date[0]-count-1].nameDay != "Sunday":
 				count += 1
 			startDate[0] -= count
-		dayArray = [self.days[startDate[0]]]
-		for i in range(1,counterMax):
+		dayArray = [self.days[startDate[0]-1]]
+		for i in range(0,counterMax):
 			dayArray.append(self.days[startDate[0]+i])
+		print(dayArray)
 		return dayArray
 		
 if "__name__" == "__main__":    
