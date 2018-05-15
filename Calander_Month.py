@@ -20,7 +20,7 @@ class Month:
 		self.days = []
 
 		# Broke up setting days into sections for "simplicity"
-		#   Only adds day in once, in simple terms the following block adds 28 "days"
+		#    Only adds day in once, in simple terms the following block adds 28 "days"
 		#    which is the minimum number of days in a month, the checks for feb's unique property
 		#    and adds if true, adds upto and including day 30, then checks if a days has thirty days from the daysThirty array
 		#    if not thirty days adds last day (31)
@@ -64,32 +64,29 @@ class Month:
 		
 	def insertTask(self,task):
 	#Adds task to correct day
-	#checks if day correct
+	#checks if day valid
 		if task.date[0] <= 0 or task.date[0] >= len(self.days):
-			assert ValueError("Day Incorrect")
+			assert ValueError("Day Incorrect: "+task.date[0])
 		self.days[task.date[0]-self.days[0].number].insertTask(task)
 		return True
 
-	def getWeeksTasks(self,date):
+	def getWeeksTasksMonth(self,date,counterRemaining=0):
+
 		#Generating an Array for the tasks
 		#Formatting [ [Day="Sunday",Date="1st",Task="Do Nothing"], ... ]
-		counterMax = 6
-		startDate = date
-		if self.days[date[0]-1].nameDay == "Saturday":
-			counterMax += 1
-		# if given date is NOT saturday need to find the sunday for the week
-		else:
-			count = 0
-			#print(self.days[date[0]-1].nameDay)
-			while self.days[date[0]-count-1].nameDay != "Sunday":
-				count += 1
-			startDate[0] -= count
-		dayArray = [self.days[startDate[0]-1]]
-		for i in range(0,counterMax):
-			dayArray.append(self.days[startDate[0]+i])
-		print(dayArray)
-		return dayArray
+		#Returns false as last element if doesn't add enough days to the array,
+		#		i.e if the month ends this week
+		print(self.name)
+		counterMax = 7 - counterRemaining
+		if date[0]+counterMax > len(self.days):
+			return self.getDays(date[0],date[0]+counterMax) + [False]
+		return self.getDays(date[0],date[0]+counterMax)
 		
+	def getDay(self,number):
+		return self.days[number-1]
+		
+	def getDays(self,start,end):
+		return self.days[start-1:end-1]
 if "__name__" == "__main__":    
 	A = Month(11)
 	A

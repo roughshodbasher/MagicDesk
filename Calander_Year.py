@@ -31,15 +31,24 @@ class Year:
 
 		
 	def insertTask(self,task):
-		print(task.date)
+		#print(task.date)
 		# Checking if month is valid
 		if task.date[1] <= 0 or task.date[1] >= 13:
 			assert ValueError("Month Incorrect")
-		self.months[task.date[1]-self.months[0].number].insertTask(task)
+		self.getMonth(task.date[1]).insertTask(task)
 	
 	def getWeeksTasks(self,date):
-		return self.months[date[1]-1].getWeeksTasks(date)
-		
+		Tasks = self.getMonth(date[1]).getWeeksTasksMonth(date)
+		if Tasks[-1] != False:
+			print(Tasks[0].nameDay)
+			return Tasks
+		Tasks.pop()
+		date[0] += 1
+		return Tasks + self.getMonth(date[1]).getWeeksTasksMonth(date,len(Taks))
+	
+	def getMonth(self,number):
+		return self.months[number-1]
+	
 if "__name__" == "__main__":
 	test = Year(2018)
 	test.printAll()

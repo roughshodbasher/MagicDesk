@@ -1,6 +1,7 @@
 #Main Calander class for Tasks
 
 from Calander_Year import Year
+from datetime import datetime
 
 #Temp task add
 import Calander_Task
@@ -38,13 +39,15 @@ class Calander:
 		return True
 		
 	def printWeeksTasks(self,today=False):
+                # NOT USED
 		# Prints off this Weeks Tasks
 		# if today Saturday (new week on Sunday prints Sat - next Sat)
 		# TODO get todays date, today input in form of [DD,MM,YYYY]
 		if not today:
 			#add call to get current date
 			#then format in [DD,MM,YYYY]
-			x = 1
+			now = datetime.now()
+			today = [now.day,now.month,now.year]
 		
 		#Realized can be done when printing not calling
 		#Saturday check
@@ -64,15 +67,16 @@ class Calander:
 		for i in range(0,len(days)):
 			dayArray.append(days[i])
 		#if today is saturday prints in corresponding position
-		print(dayArray)
+		
 		if isSaturday:
 			print("\t"*13+str(dayArray[0].name))
+			print()
 			for t in dayArray[0].tasks:
 				print("\t"*13+str(t))
 			del days[0]
 			del dayArray[0]
 		# Getting dates for the week
-		print(dayArray[0].nameDay,dayArray[0].name)
+		#print(dayArray[0].nameDay,dayArray[0].name)
 		dateArray = []
 		taskArray = []
 		for d in days:
@@ -102,23 +106,50 @@ class Calander:
 					PS += " "*(16-len(str(t)))
 				
 			print(PS)
-		for d in days:
-			print(d.tasks)
+		#for d in days:
+		#	print(d.tasks)
 		return
 		
+	def getPntMonth(self):
+		now = datetime.now()
+		return self.years[now.year-2017].getMonth(now.month)
+	
+	def getWeekTasks(self):
+		now = datetime.now()
+		cDay = now.day
+		month = now.month
+		year = now.year
+		RA = []
+		for i in range(7):
+			if cDay+i >= len(self.years[year-2017].months[month].days):
+				month += 1
+				cDay = 1
+				if month == 13:
+					month = 1
+					year += 1
+			RA.append(self.years[year-2017].getMonth(month).getDay(cDay))
+			cDay += 1
+		return RA
+				
+			
+		
 test = Calander()
-testTask = Calander_Task.Task("Name",[7,0,2017],2130)
+testTask = Calander_Task.Task("Name",[16,5,2018],2130)
 test.addTask(testTask)
-test.addTask(testTask)
+#test.addTask(testTask)
+#test.addTask(testTask)
 
 #test for adding tasks
-for i in range(4):
-	testTask = Calander_Task.Task("Name"+str(i),[(1+i)+7,0,2017],2130)
-	test.addTask(testTask)
+#for i in range(4):
+#	testTask = Calander_Task.Task("Name"+str(i),[(1+i)+7,0,2017],2130)
+#	test.addTask(testTask)
 
 
 #for y in test.years:
 #	print(y.printAll())
 #print(len(test.years))
-test.printWeeksTasks([7,1,2017])
+week= test.getWeekTasks()
+for d in week:
+        print(d.nameDay,d.getTasks())
+#test.printWeeksTasks()
 input()

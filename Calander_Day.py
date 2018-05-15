@@ -26,6 +26,7 @@ class Day:
 	def __str__(self):
 		return self.nameDay+" "+self.name
 
+		
 	def printTasks(self):
 		for task in self.tasks:
 			print(task)
